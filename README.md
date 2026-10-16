@@ -2,7 +2,7 @@
 
 An open-data portfolio project from Modus Data GmbH exploring whether routinely collected health measurements can help identify anemia and low iron status. The project is intended to demonstrate a careful, reproducible machine-learning workflow, from public data exploration through model evaluation and a small interactive application.
 
-This is a research and demonstration project, not a medical device. It does not diagnose anemia or iron deficiency, and it must not be used to make decisions about an individual's care. The notebook runs exploratory baseline models, but no clinically validated or app-ready model exists.
+This is a research and demonstration project, not a medical device. It does not diagnose anemia or iron deficiency, and it must not be used to make decisions about an individual's care. The repository includes an exploratory model artifact for the demo app, but no clinically validated model exists.
 
 ## Repository Outline
 
@@ -29,7 +29,7 @@ This dataset is an anemia dataset, not a dataset specifically labeled for iron d
 2. Explore missingness, class balance, distributions, duplicates, and potential sources of leakage.
 3. Compare baseline models using separate train, validation, and test partitions.
 4. Evaluate calibration, subgroup performance, and limitations on appropriate external data.
-5. Save a documented model artifact and connect it to the app only after evaluation is reviewed.
+5. Keep the demo artifact's feature schema and evaluation metadata alongside it; do not treat it as clinically validated.
 
 To download the Kaggle dataset, configure the Kaggle CLI credentials securely and run `kaggle datasets download -d biswaranjanrao/anemia-dataset -p data --unzip`. See [data/README.md](data/README.md) for details. Downloaded CSVs are excluded from Git.
 
@@ -45,7 +45,11 @@ pip install -r requirements.txt
 streamlit run app/app.py
 ```
 
-The Streamlit dashboard provides a lab-based anemia predictor and an IRON-5 lifestyle questionnaire. The model is an exploratory anemia-label demonstration, not a validated iron-deficiency model. The IRON-5 score bands are implemented as a portfolio demonstration and are not clinically validated. The questionnaire does not constitute medical advice.
+The Streamlit dashboard provides a lab-based anemia predictor and an IRON-5 lifestyle questionnaire. The committed model is an exploratory anemia-label demonstration, not a validated iron-deficiency model. The IRON-5 score bands are implemented as a portfolio demonstration and are not clinically validated. The questionnaire does not constitute medical advice.
+
+## Deploy to Streamlit Community Cloud
+
+The app expects the committed model at `models/anemia_xgb_pipeline.joblib`; the path is resolved relative to `app/app.py`, so no cloud secret or external model download is needed. Before deployment, confirm this file is included in the GitHub repository. In Streamlit Community Cloud, create an app from the repository and branch, and set the main file path to `app/app.py`. Dependencies are installed from the root `requirements.txt`.
 
 ## Project Status
 
@@ -53,6 +57,7 @@ The Streamlit dashboard provides a lab-based anemia predictor and an IRON-5 life
 - [x] Create first-pass EDA and LR/XGBoost comparison notebook
 - [x] Add IRON-5 questionnaire scoring demo and Streamlit tab
 - [x] Show score bands and recommendations in the dashboard
+- [x] Include the demo XGBoost artifact for Streamlit deployment
 - [ ] Verify data provenance, label construction, and license
 - [ ] Review leakage risk and identify an appropriate iron-deficiency dataset
 - [ ] Validate models on an independent, clinically relevant cohort

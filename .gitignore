@@ -8,6 +8,7 @@ data/**/*.csv
 data/**/*.parquet
 data/**/*.xlsx
 
-# Model binaries are generated locally and should be documented before sharing.
+# Ignore generated model binaries except the demo artifact required by the app.
 models/*.joblib
 models/*.pkl
+!models/anemia_xgb_pipeline.joblib
