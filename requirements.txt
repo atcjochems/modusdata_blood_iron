@@ -1,0 +1,8 @@
+ipykernel
+joblib
+matplotlib
+numpy
+pandas
+scikit-learn
+streamlit
+xgboost-cpu
